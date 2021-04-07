@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bank.api.conta.Conta;
-import com.bank.api.repository.ClienteRepository;
+import com.bank.api.model.Conta;
+import com.bank.api.repository.ContaRepository;
 
 @RestController
 @RequestMapping("/contas")
-public class ClienteController {
-	
+public class ContaController {
+
 	@Autowired
-	private ClienteRepository clienteRepository;
-	
-	@GetMapping
+	private ContaRepository ContaRepository;
+
+	@GetMapping("/listar")
 	public List<Conta> listar() {
-	return clienteRepository.findAll();
+		return ContaRepository.findAll();
 	}
-	
-	@PostMapping
+
+	@PostMapping("/adicionar")
 	public Conta adicionar(@Valid @RequestBody Conta conta) {
-		return clienteRepository.save(conta);
+		return ContaRepository.save(conta);
 	}
 
 }

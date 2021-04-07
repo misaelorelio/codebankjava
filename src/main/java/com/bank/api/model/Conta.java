@@ -1,18 +1,18 @@
-package com.bank.api.conta;
+package com.bank.api.model;
 
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 public class Conta {
@@ -20,20 +20,23 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
 	private Long idConta;
-	@NotNull(message = "O campo nome e obrigatório")
+	@NotNull(message = "O campo nome é obrigatório")
 	@Size(min = 1, message = "Campo nome obrigatório")
 	@Column(nullable = false)
 	private String nome;
+	@CPF
+	@NotNull(message = "O campo cpf é obrigatório")
+	@Size(min = 1, message = "Campo nome obrigatório")
 	@Column(nullable = false)
 	private String cpf;
+	@NotNull(message = "O campo data de nascimento é obrigatório")
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
+	@NotNull(message = "O campo data de cadastro é obrigatório")
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataCadastro;
-	
-	
 
 	public Long getIdConta() {
 		return idConta;
