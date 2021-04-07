@@ -11,58 +11,71 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class Movimentacao {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
 	private Long idMovimentacao;
+
 	@NotNull(message = "O campo valor da transação é obrigatório")
 	@Column(nullable = false)
 	private Double valorTransacao;
+
 	@NotNull(message = "O campo tipo de transação é obrigatório")
 	@Column(nullable = false)
+	@Min(value = 1, message = "Informar numero 1 para depósito e 2 para saque")
+	@Max(value = 2, message = "Informar numero 2 para saque e 1 para depósito")
 	private Integer tipoTransacao;
+
 	@NotNull(message = "O campo data da transação é obrigatório")
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataTransacao;
+
 	@Transient
-	private Double saldo; 
-	
+	private Double saldo;
 
 	@ManyToOne
 	private Conta conta;
-	
+
 	public Double getSaldo() {
 		return saldo;
 	}
+
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
-	
-	
+
 	public Long getIdMovimentacao() {
 		return idMovimentacao;
 	}
+
 	public Conta getConta() {
 		return conta;
 	}
+
 	public void setConta(Conta conta) {
 		this.conta = conta;
 	}
+
 	public void setIdMovimentacao(Long idMovimentacao) {
 		this.idMovimentacao = idMovimentacao;
 	}
+
 	public Double getValorTransacao() {
 		return valorTransacao;
 	}
+
 	public Integer getTipoTransacao() {
 		return tipoTransacao;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,6 +86,7 @@ public class Movimentacao {
 		result = prime * result + ((valorTransacao == null) ? 0 : valorTransacao.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -104,18 +118,21 @@ public class Movimentacao {
 			return false;
 		return true;
 	}
+
 	public void setTipoTransacao(Integer tipoTransacao) {
 		this.tipoTransacao = tipoTransacao;
 	}
+
 	public void setValorTransacao(Double valorTransacao) {
 		this.valorTransacao = valorTransacao;
 	}
+
 	public Date getDataTransacao() {
 		return dataTransacao;
 	}
+
 	public void setDataTransacao(Date dataTransacao) {
 		this.dataTransacao = dataTransacao;
 	}
 
-	
 }

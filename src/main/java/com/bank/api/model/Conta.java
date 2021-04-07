@@ -20,19 +20,23 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
 	private Long idConta;
+
 	@NotNull(message = "O campo nome é obrigatório")
 	@Size(min = 1, message = "Campo nome obrigatório")
 	@Column(nullable = false)
 	private String nome;
-	@CPF
+
+	@CPF(message="Informe um CPF válido")
 	@NotNull(message = "O campo cpf é obrigatório")
 	@Size(min = 1, message = "Campo nome obrigatório")
 	@Column(nullable = false)
 	private String cpf;
+
 	@NotNull(message = "O campo data de nascimento é obrigatório")
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
+
 	@NotNull(message = "O campo data de cadastro é obrigatório")
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)

@@ -28,7 +28,7 @@ public class MovimentacaoController {
 
 	@PostMapping("/adicionar")
 	public Movimentacao adicionar(@Valid @RequestBody Movimentacao movimentacao) {
-		
+
 		return movimentacaoRepository.save(movimentacao);
 	}
 
@@ -36,23 +36,21 @@ public class MovimentacaoController {
 	public Double buscarSaldo(@PathVariable("id") String id) {
 		return movimentacaoRepository.buscarSaldo(id);
 	}
-	
+
 	@GetMapping("/extrato/{id}")
 	public List<Movimentacao> consultarExtrato(@PathVariable("id") Long id) {
-		List<Movimentacao> listaMovimentacao= movimentacaoRepository.consultarExtrato(id);
-		
-		
+		List<Movimentacao> listaMovimentacao = movimentacaoRepository.consultarExtrato(id);
+
 		Double saldo = 0.;
-		for(Integer x= 0; x < listaMovimentacao.size();x++) {
-			if(listaMovimentacao.get(x).getTipoTransacao() == 1) {
+		for (Integer x = 0; x < listaMovimentacao.size(); x++) {
+			if (listaMovimentacao.get(x).getTipoTransacao() == 1) {
 				saldo += listaMovimentacao.get(x).getValorTransacao();
-			}else {
+			} else {
 				saldo -= listaMovimentacao.get(x).getValorTransacao();
 			}
-				listaMovimentacao.get(x).setSaldo(saldo);
+			listaMovimentacao.get(x).setSaldo(saldo);
 		}
 		return listaMovimentacao;
 	}
-
 
 }
